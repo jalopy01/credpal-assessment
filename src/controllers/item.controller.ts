@@ -13,8 +13,11 @@ export const createItem = async (req: AuthRequest, res: Response) => {
 
 export const getItems = async (req: AuthRequest, res: Response) => {
     try {
-        const items = await itemService.getItems(req.userId as string);
-        res.status(200).json(items);
+       const page = parseInt(req.query.page as string);
+        const limit = parseInt(req.query.limit as string);
+
+        const result = await itemService.getItems(req.userId as string, page, limit);
+        res.status(200).json(result);
     } catch (error: any) {
         res.status(400).json({ message: error.message });
     }

@@ -14,9 +14,14 @@ export const createItem = async (itemData: Omit<IItem, '_id' | 'owner'>, userId:
     return item;
 };
 
-export const getItems = async (userId: string) => {
-    const items = await Item.find({ owner: userId });
-    return items;
+export const getItems = async (userId: string, page: number = 1, limit: number = 10) => {
+  const skip = (page - 1) * limit;
+  const items = await Item.find({ owner: userId })
+                          .skip(skip)
+                          .limit(limit);
+  const total = await Item.countDocuments({ owner: userId });
+  
+  return { items, total, page, totalPages: Math.ceil(total / limit) };
 };
 
 export const getItem = async (itemId: string, userId: string) => {

@@ -3,15 +3,19 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
 import itemRoutes from './routes/item.routes';
 import connectDB from './config/database';
+import helmet from 'helmet';
 
 dotenv.config();
 
 const app: Application = express();
 const port = process.env.PORT || 3000;
 
-connectDB();
+
+app.use(helmet());
 
 app.use(express.json());
+
+connectDB();
 
 app.use('/api/auth', authRoutes);
 app.use('/api/items', itemRoutes);
