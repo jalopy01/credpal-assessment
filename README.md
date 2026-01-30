@@ -34,7 +34,7 @@ Before running this application, ensure you have:
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/jalopy01/credpal-assessment.git
    cd credpal-assessment
    ```
 
